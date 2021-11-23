@@ -1,8 +1,8 @@
 package com.kodilla.testing.shape;
 
 import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @DisplayName("Shape Collector Test Suite")
@@ -50,6 +50,16 @@ public class ShapeCollectorTestSuite {
 
     class removeFigure {
         ShapeCollector shapeCollector = new ShapeCollector();
+
+        @Test
+        void removeFromEmptyList() {
+            //Given
+            Shape shape = new Circle(6.0);
+            //When
+            boolean check = shapeCollector.removeFigure(shape);
+            //Then
+            assertNotEquals(true, false);
+        }
 
         @Test
         void removeCircle() {
