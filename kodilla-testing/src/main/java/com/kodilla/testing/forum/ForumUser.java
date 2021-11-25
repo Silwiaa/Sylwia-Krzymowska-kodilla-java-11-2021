@@ -27,7 +27,8 @@ public class ForumUser {
         return posts.size();
     }
 
-    public int getCommentsQuantity() {
+    public int getCommentsQuantity()
+    {
         return comments.size();
     }
 
