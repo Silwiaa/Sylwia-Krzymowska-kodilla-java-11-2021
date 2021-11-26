@@ -27,15 +27,6 @@ public class BookLibrary {
     }
 
     public List<Book> listBooksInHandsOf(LibraryUser libraryUser) {
-        List<Book> booksInHandsOf = new ArrayList<>();
-
-        Book book = new Book("Title 1", "Author 1", 2000);
-        Book book2 = new Book("Title 2", "Author 2", 2011);
-        Book book3 = new Book("Author 3", "Title 3", 1997);
-        booksInHandsOf.add(book);
-        booksInHandsOf.add(book2);
-        booksInHandsOf.add(book3);
-
-        return booksInHandsOf;
+        return libraryDatabase.listBooksInHandsOf(libraryUser);
     }
 }
