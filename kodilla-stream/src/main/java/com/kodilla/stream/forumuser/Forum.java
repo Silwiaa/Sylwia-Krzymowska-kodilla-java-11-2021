@@ -1,6 +1,5 @@
 package com.kodilla.stream.forumuser;
 
-import java.time.Month;
 import java.util.*;
 
 public class Forum {

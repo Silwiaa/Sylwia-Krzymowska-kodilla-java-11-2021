@@ -1,12 +1,5 @@
 package com.kodilla.testing.forum.statistics;
 
-import com.kodilla.testing.forum.ForumComment;
-import com.kodilla.testing.forum.ForumPost;
-import com.kodilla.testing.forum.ForumUser;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class ForumStatistics {
     private Statistics statistics;
     private int forumUserNumber;
@@ -16,9 +9,32 @@ public class ForumStatistics {
     private double avgCommentsPerUser;
     private double avgCommentsPerPost;
 
-
     public ForumStatistics(Statistics statistics) {
         this.statistics = statistics;
+    }
+
+    public int getForumUserNumber() {
+        return forumUserNumber;
+    }
+
+    public int getForumPostsNumber() {
+        return forumPostsNumber;
+    }
+
+    public int getForumCommentNumber() {
+        return forumCommentNumber;
+    }
+
+    public double getAvgPostsPerUser() {
+        return avgPostsPerUser;
+    }
+
+    public double getAvgCommentsPerUser() {
+        return avgCommentsPerUser;
+    }
+
+    public double getAvgCommentsPerPost() {
+        return avgCommentsPerPost;
     }
 
     public void calculateAdvStatistics(Statistics statistics) {
@@ -26,32 +42,29 @@ public class ForumStatistics {
         forumPostsNumber = statistics.postsCount();
         forumCommentNumber = statistics.commentsCount();
 
-        if (forumUserNumber !=0) {
-            avgPostsPerUser = forumPostsNumber/forumUserNumber;
-            avgCommentsPerUser = forumCommentNumber/forumUserNumber;
-            if (forumCommentNumber !=0) {
-                avgCommentsPerPost = forumPostsNumber / forumCommentNumber;
-            }
+        if (forumUserNumber == 0) {
+            avgPostsPerUser = 0;
+            avgCommentsPerUser = 0;
+        } else {
+            avgPostsPerUser = forumPostsNumber / forumUserNumber;
+            avgCommentsPerUser = forumCommentNumber / forumUserNumber;
+        }
+
+        if (forumPostsNumber == 0) {
+            avgCommentsPerPost = 0;
+        } else {
+            avgCommentsPerPost = forumCommentNumber / forumPostsNumber;
         }
     }
 
     public void showStatistics() {
         System.out.println(
-                "Forum User number is: " + forumUserNumber + "\n" +
-                "Forum Post Number is: " + forumPostsNumber + "\n" +
-                "Forum Comment Number is: " + forumCommentNumber
+                "Users quantity is: " + forumUserNumber + "\n" +
+                "Posts quantity is: " + forumPostsNumber + "\n" +
+                "Comments quantity is: " + forumCommentNumber + "\n" +
+                "An averadge  posts per user is: " + avgPostsPerUser + "\n" +
+                "An averadge  comments per user is: " + avgCommentsPerUser + "\n" +
+                "An averadge  comments per user post is: " + avgCommentsPerPost + "\n"
         );
-        if (forumUserNumber !=0) {
-            System.out.println(
-                    "\n" + "An average number of posts per user is:" + avgPostsPerUser + "\n" +
-                    "An average number of comments per user is: " + avgCommentsPerUser
-            );
-            if (forumCommentNumber !=0) {
-                System.out.println( "\n" + "An average number of comments per post is: " + avgCommentsPerPost);
-            }
-
-        }
     }
-
-
 }

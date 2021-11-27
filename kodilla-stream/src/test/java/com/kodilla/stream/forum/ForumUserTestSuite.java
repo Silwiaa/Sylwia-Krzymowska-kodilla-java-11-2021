@@ -1,12 +1,11 @@
 package com.kodilla.stream.forum;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 class ForumUserTestSuite {
 
     @Test
-    void testGetLocationsOfFriends {
+    void testGetLocationsOfFriends() {
 
         //Given
         ForumUser user1 = new ForumUser("alan01", "Alan Kosovsky", "Washington");
