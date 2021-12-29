@@ -1,13 +1,11 @@
 package com.kodilla.good.patterns.challenges;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 public class Application {
     public static void main(String[] args) {
+        //Exc 13.1
+        /*
         MovieStore store = new MovieStore();
+
         Map<String, List<String>> movies = store.getMovies();
 
         String movieTitles = movies.entrySet().stream()
@@ -16,6 +14,17 @@ public class Application {
                 .collect(Collectors.joining("!"));
 
         System.out.println(movieTitles);
+        */
+
+        //Exc 13.2
+        OrderRequestRetriever orderRequestRetriever = new OrderRequestRetriever();
+        OrderRequest orderRequest = orderRequestRetriever.retrieve();
+
+        OrderProcessor orderProcessor = new OrderProcessor(
+                new MailService(),
+                new ProductOrderService(),
+                new ItemOrderRepository());
+        orderProcessor.process(orderRequest);
     }
 }
 
