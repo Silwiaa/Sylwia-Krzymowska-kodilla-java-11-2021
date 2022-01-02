@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BoardTestSuite {
 
-    @Test
+   /* @Test
     void testAddTaskList() {
         //Given
         Board project = prepareTestData();
@@ -81,7 +81,7 @@ public class BoardTestSuite {
         assertEquals(2, longTasks);
     }
 
-    @Test
+    /*@Test
     void testAddTaskListAverageWorkingOnTask() {
 
         //Given
@@ -184,5 +184,5 @@ public class BoardTestSuite {
         project.addTaskList(taskListInProgress);
         project.addTaskList(taskListDone);
         return project;
-    }
+    }*/
 }
