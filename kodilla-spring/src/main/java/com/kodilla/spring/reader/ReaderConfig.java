@@ -10,13 +10,9 @@ import org.springframework.context.annotation.Scope;
 @Configuration
 public class ReaderConfig {
 
-    @Autowired
-    @Qualifier("book1")
-    Book book;
-
     @Bean
     public Reader getReader() {
-        return new Reader(book);
+        return new Reader(getBookOne());
     }
 
     @Bean(name = "book1")
