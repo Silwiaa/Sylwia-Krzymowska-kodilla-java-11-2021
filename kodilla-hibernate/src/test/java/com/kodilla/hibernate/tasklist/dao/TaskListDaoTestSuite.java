@@ -65,7 +65,7 @@ class TaskListDaoTestSuite {
         //Then
         assertNotEquals(0, id);
 
-        //CleanUp*/
-        taskListDao.deleteById(16);
+        //CleanUp
+        taskListDao.deleteById(id);
     }
 }

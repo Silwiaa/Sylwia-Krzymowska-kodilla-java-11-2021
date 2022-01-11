@@ -1,6 +1,5 @@
 package com.kodilla.hibernate.manytomany;
 
-import com.kodilla.hibernate.task.Task;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
