@@ -1,18 +1,15 @@
 package com.kodilla.sudoku;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class SudokuGame {
     private SudokuBoard sudokuBoard = new SudokuBoard();
     private TextScanner textScanner = new TextScanner();
+    private MoveValidator moveValidator = new MoveValidator();
+    private String userChoice;
     private int rowNo;
     private int columnNo;
     private int value;
-    private SudokuElement element;
     private SudokuRow row;
-    private String userChoice;
+    private SudokuElement element;
     private boolean isGameFinished = false;
 
     public SudokuGame(){
@@ -73,6 +70,7 @@ public class SudokuGame {
             solveSudoku();
 
         } else {
+            interpretUserChoice();
             fillBoard();
         }
     }
@@ -83,14 +81,19 @@ public class SudokuGame {
     }
 
     private void fillBoard() {
-        interpretUserChoice();
+        String wrongValueMessage;
 
-        while(!checkIfIsFreeField()) {
-            System.out.println("Column nr: " + columnNo + ", row: " + rowNo + " is filled. Pick up another field:");
-            userChoice = textScanner.scanNextStepUserValue();
-            checkIfIsFreeField();
+        while(element.getValue() != SudokuElement.EMPTY) {
+            wrongValueMessage = "Column nr: " + columnNo + ", row: " + rowNo + " is filled. Pick up another field:";
+            updateMoveAfterNegativeValidation(wrongValueMessage);
         }
-        checkIfIsValidMove();
+
+        while(!moveValidator.checkIfIsValidMove(sudokuBoard, row, columnNo, rowNo, value)) {
+            wrongValueMessage = "The same value can't be placed twice in the same row, column or group!";
+            updateMoveAfterNegativeValidation(wrongValueMessage);
+
+        }
+
         element.setValue(value);
         row.getTakenValues().add(value);
     }
@@ -103,68 +106,10 @@ public class SudokuGame {
         row = sudokuBoard.getBoard().get(rowNo -1);
     }
 
-    private boolean checkIfIsFreeField() {
-        interpretUserChoice();
-
-        if (element.getValue() == -1) {
-            return true;
-
-        } else {
-            return false;
-        }
-    }
-
-    private void checkIfIsValidMove() {
-
-        //check if the value has been taken in current row
-        while (row.getTakenValues().contains(value)) {
-            checkNextMoveAfterNegativeValidation();
-        }
-
-        List<Integer> possibleValues = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
-        possibleValues.removeAll(row.getTakenValues());
-        List<Integer> takenValues = new ArrayList<>();
-
-        //check if the value has been taken in current column
-        for (int i = 0 ; i < 9 ; i++) {
-            takenValues.add(sudokuBoard.getBoard().get(i).getElements().get(columnNo-1).getValue());
-        }
-
-        possibleValues.removeAll(takenValues);
-
-        while (!possibleValues.contains(value)) {
-            checkNextMoveAfterNegativeValidation();
-        }
-
-        while (!checkValueInGroup()) {
-            checkNextMoveAfterNegativeValidation();
-        }
-    }
-
-    public void checkNextMoveAfterNegativeValidation() {
-        String wrongValueMessage = "The same value can't be placed twice in the same row, column or group!";
+    public void updateMoveAfterNegativeValidation(String wrongValueMessage) {
         System.out.println(wrongValueMessage);
         userChoice = textScanner.scanNextStepUserValue();
         interpretUserChoice();
-    }
-
-    public boolean checkValueInGroup() {
-        int startRow = (rowNo - 1) - (rowNo -1) % 3;
-        int startColumn = (columnNo -1) - (columnNo -1) % 3;
-        List<Integer> takenValuesInGroup = new ArrayList<>();
-
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                int currentValue = sudokuBoard.getBoard().get(startRow + i).getElements().get(startColumn + j).getValue();
-                if (currentValue != SudokuElement.EMPTY)
-                    takenValuesInGroup.add(currentValue);
-            }
-        }
-
-        if (takenValuesInGroup.contains(value))
-            return false;
-
-        return true;
     }
 
     private void printNextStepInstruction() {

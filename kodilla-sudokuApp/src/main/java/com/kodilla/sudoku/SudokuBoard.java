@@ -20,15 +20,19 @@ public class SudokuBoard extends Prototype<SudokuBoard> {
     public String toString() {
         String innerLine = "| . . . . . . .|. . . . . . . | . . . . . . .|";
         String groupLine = "+--------------+--------------+--------------+";
-        String printedBoard = "";
+        String boardToPrint = "";
+
         for (int i = 0 ; i < 9 ; i++) {
+            String rowToPrint = "\n" + board.get(i).toString() + "|\n";
+
             if (i % 3 == 0) {
-                printedBoard += groupLine + "\n" + board.get(i).toString() + "|\n";
+                boardToPrint += groupLine + rowToPrint;
+
             } else {
-                printedBoard += innerLine + "\n" + board.get(i).toString() + "|\n";
+                boardToPrint += innerLine + rowToPrint;
             }
         }
-        return printedBoard + groupLine + "\n";
+        return boardToPrint + groupLine + "\n";
     }
 
     public SudokuBoard deepCopy() throws CloneNotSupportedException {

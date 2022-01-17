@@ -4,68 +4,62 @@ import java.util.Scanner;
 
 public class TextScanner {
     private Scanner scanner = new Scanner(System.in);
+    private MoveValidator moveValidator = new MoveValidator();
+    private String userChoice;
+    private String nextStepUserValue;
 
     public String scanUserChoice() {
-        String userValue = scanner.nextLine();
+        userChoice = scanner.nextLine();
 
-        while (!checkIfIsNumericValue(userValue)) {
-            System.out.println("Use only integers");
-            userValue = scanner.nextLine();
-            checkIfIsNumericValue(userValue);
+        while (!moveValidator.checkIfIsNumericValue(userChoice)) {
+            updateUserValue(1, "Use only integers");
+            moveValidator.checkIfIsNumericValue(userChoice);
         }
 
-         while (!checkIfIsValidNumber(userValue)) {
-             System.out.println("Input 3 numbers from 1 to 9!");
-             userValue = scanner.nextLine();
-             checkIfIsValidNumber(userValue);
+         while (!moveValidator.checkIfIsValidNumber(userChoice)) {
+             updateUserValue(1, "Input 3 numbers from 1 to 9!");
+             moveValidator.checkIfIsValidNumber(userChoice);
          }
 
-        return userValue;
+        return userChoice;
     }
 
-    String scanNextStepUserValue() {
-        String nextStepUserValue = scanner.nextLine();
+    public String scanNextStepUserValue() {
+        nextStepUserValue = scanner.nextLine();
 
-        while (!checkIfIsNumericValue(nextStepUserValue)) {
+        while (!moveValidator.checkIfIsNumericValue(nextStepUserValue)) {
 
             if (isSolveRequest(nextStepUserValue)) {
                 return "SUDOKU";
 
             } else {
-                System.out.println("Invalid value. Enter new integers values to continue or enter SUDOKU to solve the game:");
-                nextStepUserValue = scanner.nextLine();
-                checkIfIsNumericValue(nextStepUserValue);
+                updateUserValue(2, "Invalid value. Enter new integers values to continue or enter SUDOKU to solve the game:");
+                moveValidator.checkIfIsNumericValue(nextStepUserValue);
             }
         }
 
-        while (!checkIfIsValidNumber(nextStepUserValue)) {
-            System.out.println("Wrong value! Enter three integers values:");
-            nextStepUserValue = scanner.nextLine();
+        while (!moveValidator.checkIfIsValidNumber(nextStepUserValue)) {
+            updateUserValue(2, "Wrong value! Enter three integers values:");
 
             if (isSolveRequest(nextStepUserValue)) {
-                System.out.println("Solve the game is impossible at this step. Enter three integer values first:");
-                nextStepUserValue = scanner.nextLine();
+                updateUserValue(2, "Solve the game is impossible at this step. Enter three integer values first:");
 
             } else {
-                checkIfIsValidNumber(nextStepUserValue);
+                moveValidator.checkIfIsValidNumber(nextStepUserValue);
             }
         }
 
         return nextStepUserValue;
     }
 
-    private boolean checkIfIsNumericValue(String userValue) {
-        Scanner scan = new Scanner(userValue);
-        return scan.hasNextInt();
-    }
+    private void updateUserValue (int valueToUpdate, String message) {
+        System.out.println(message);
 
-    private boolean checkIfIsValidNumber(String userValue) {
-        boolean result = false;
-
-        if (userValue.length() == 3)
-            result = true;
-        
-        return result;
+        if (valueToUpdate == 1) {
+            userChoice = scanner.nextLine();
+        } else {
+            nextStepUserValue = scanner.nextLine();
+        }
     }
 
     private boolean isSolveRequest(String userValue) {
