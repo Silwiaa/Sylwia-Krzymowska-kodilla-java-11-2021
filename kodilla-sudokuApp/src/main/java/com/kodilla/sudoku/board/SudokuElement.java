@@ -1,4 +1,4 @@
-package com.kodilla.sudoku;
+package com.kodilla.sudoku.board;
 
 import java.util.*;
 
@@ -14,6 +14,10 @@ public class SudokuElement {
 
     public int getValue() {
         return value;
+    }
+
+    public List<Integer> getPossibleValues() {
+        return possibleValues;
     }
 
     public void setValue(int newValue) {

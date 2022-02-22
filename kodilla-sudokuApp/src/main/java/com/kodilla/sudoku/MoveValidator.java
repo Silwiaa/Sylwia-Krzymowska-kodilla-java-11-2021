@@ -1,6 +1,8 @@
 package com.kodilla.sudoku;
 
+import com.kodilla.sudoku.board.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class MoveValidator {
 
@@ -69,4 +71,5 @@ public class MoveValidator {
 
         return true;
     }
+
 }

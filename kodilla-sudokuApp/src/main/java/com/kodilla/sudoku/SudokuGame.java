@@ -1,5 +1,7 @@
 package com.kodilla.sudoku;
 
+import com.kodilla.sudoku.board.*;
+
 public class SudokuGame {
     private SudokuBoard sudokuBoard = new SudokuBoard();
     private TextScanner textScanner = new TextScanner();
@@ -76,7 +78,20 @@ public class SudokuGame {
     }
 
     public void solveSudoku() {
-        System.out.println("Solving sudoku");
+        System.out.println("Solving sudoku:");
+
+        for (int i = 0 ; i < 9 ; i++) {
+            for (int j = 0 ; j < 9 ; j++) {
+                rowNo = i + 1;
+                columnNo = j + 1;
+                element = sudokuBoard.getBoard().get(i).getElements().get(j);
+
+                if (element.getValue() == SudokuElement.EMPTY) {
+                    System.out.println("Row : " + rowNo + ", column: " + columnNo + ", value: " + element.getPossibleValues());
+                }
+            }
+        }
+
         isGameFinished = true;
     }
 
@@ -93,9 +108,8 @@ public class SudokuGame {
             updateMoveAfterNegativeValidation(wrongValueMessage);
 
         }
-
         element.setValue(value);
-        row.getTakenValues().add(value);
+        updateElements();
     }
 
     private void interpretUserChoice() {
@@ -110,6 +124,12 @@ public class SudokuGame {
         System.out.println(wrongValueMessage);
         userChoice = textScanner.scanNextStepUserValue();
         interpretUserChoice();
+    }
+
+    private void updateElements() {
+        sudokuBoard.updateElementsInGroup(sudokuBoard, row,  columnNo, rowNo, value);
+        sudokuBoard.updateElementsInRow(row, value);
+        sudokuBoard.updateElementsInColumn(sudokuBoard, columnNo, value);
     }
 
     private void printNextStepInstruction() {
