@@ -1,7 +1,5 @@
 package com.kodilla.patterns2.facade;
 
-import com.kodilla.patterns2.facade.Item;
-
 import java.math.BigDecimal;
 import java.util.*;
 
