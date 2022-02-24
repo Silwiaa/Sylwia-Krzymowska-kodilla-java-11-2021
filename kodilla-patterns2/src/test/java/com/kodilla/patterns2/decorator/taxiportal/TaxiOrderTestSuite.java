@@ -121,7 +121,7 @@ public class TaxiOrderTestSuite {
         String description = theOrder.getDescription();
 
         //Then
-        assertEquals("Drive a course by MyTaxi Network + child seat + child seat", description);
+        assertEquals("Drive a course by Uber Network + child seat + child seat", description);
     }
 
     @Test
@@ -139,7 +139,7 @@ public class TaxiOrderTestSuite {
         BigDecimal theCost = theOrder.getCost();
 
         //Then
-        assertEquals(new BigDecimal(52), theCost);
+        assertEquals(new BigDecimal(57), theCost);
     }
 
     @Test
