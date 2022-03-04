@@ -11,4 +11,5 @@ include 'kodilla-sudoku'
 include 'kodilla-sudoku'
 include 'kodilla-sudokuApp'
 include 'kodilla-patterns2'
+include 'kodilla-testing2'
 
