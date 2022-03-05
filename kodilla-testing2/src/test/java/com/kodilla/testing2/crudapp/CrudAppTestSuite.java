@@ -82,25 +82,6 @@ public class CrudAppTestSuite {
         Thread.sleep(2000);
     }
 
-    private void deleteTestTask(String taskName) {
-        driver.findElements(By.xpath("//form[@class=\"datatable__row\"]")).stream()
-                .filter(anyForm -> anyForm.findElement(By.xpath(".//p[@class=\"datatable__field-value\"]")).getText().equals(taskName))
-                .forEach(button -> button.findElement(By.xpath(".//button[4]")).click());
-    }
-
-    private boolean checkExistsInCrudApp(String taskName) {
-        driver.navigate().refresh();
-
-        int x = driver.findElements(By.xpath("//form[@class=\"datatable__row\"]")).stream()
-                .filter(anyForm -> anyForm.findElement(By.xpath(".//p[@class=\"datatable__field-value\"]")).getText().equals(taskName))
-                .collect(Collectors.toList()).size();
-
-        if (x > 0) {
-            return false;
-        }
-        return true;
-    }
-
     private boolean checkTaskExistsInTrello(String taskName) throws InterruptedException {
         final String TRELLO_LOGIN_URL = "https://trello.com/login";
         final String TRELLO_URL = "https://trello.com/b/84tzrMV2/kodilla-application";
@@ -142,5 +123,24 @@ public class CrudAppTestSuite {
         driverTrello.close();
 
         return result;
+    }
+
+    private void deleteTestTask(String taskName) {
+        driver.findElements(By.xpath("//form[@class=\"datatable__row\"]")).stream()
+                .filter(anyForm -> anyForm.findElement(By.xpath(".//p[@class=\"datatable__field-value\"]")).getText().equals(taskName))
+                .forEach(button -> button.findElement(By.xpath(".//button[4]")).click());
+    }
+
+    private boolean checkExistsInCrudApp(String taskName) {
+        driver.navigate().refresh();
+
+        int x = driver.findElements(By.xpath("//form[@class=\"datatable__row\"]")).stream()
+                .filter(anyForm -> anyForm.findElement(By.xpath(".//p[@class=\"datatable__field-value\"]")).getText().equals(taskName))
+                .collect(Collectors.toList()).size();
+
+        if (x > 0) {
+            return false;
+        }
+        return true;
     }
 }
